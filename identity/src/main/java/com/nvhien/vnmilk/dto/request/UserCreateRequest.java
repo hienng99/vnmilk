@@ -1,19 +1,22 @@
 package com.nvhien.vnmilk.dto.request;
 
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreateRequest {
-    private String username;
+    String username;
 
     @Size(min = 8, max = 20, message = "USER_PASSWORD_INVALID")
-    private String password;
-    private String firstname;
-    private String lastname;
-    private LocalDate dob;
+    String password;
+    String firstname;
+    String lastname;
+    LocalDate dob;
 }

@@ -1,14 +1,17 @@
 package com.nvhien.vnmilk.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
-    private int code;
-    private String message;
-    private T data;
+    int code;
+    String message;
+    T data;
 }

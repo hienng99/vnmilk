@@ -3,10 +3,13 @@ package com.nvhien.vnmilk.controller;
 import com.nvhien.vnmilk.dto.request.UserCreateRequest;
 import com.nvhien.vnmilk.dto.request.UserUpdateRequest;
 import com.nvhien.vnmilk.dto.response.ApiResponse;
+import com.nvhien.vnmilk.dto.response.UserResponse;
 import com.nvhien.vnmilk.entity.User;
 import com.nvhien.vnmilk.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping
     public ApiResponse<User> create(@RequestBody @Valid UserCreateRequest request) {
@@ -35,14 +39,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> get(@PathVariable("id") String id) {
-        User user = userService.get(id);
-        return ResponseEntity.ok(user);
+    public UserResponse get(@PathVariable("id") String id) {
+        return userService.get(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") String id, @RequestBody UserUpdateRequest request) {
-        return ResponseEntity.ok(userService.update(id, request));
+    public UserResponse update(@PathVariable("id") String id, @RequestBody UserUpdateRequest request) {
+        return userService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
